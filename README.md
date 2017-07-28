@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 Multigroup analysis in R with lavaan
 Visual is x1:x3 which are the measures that make up visual.
 
-Ethnicity needs to be one variable.  Time needs to be four variables.  one
+Here is an example of what I think would be a latent growth model with groups.  
 ```{r}
 library(lavaan)
 set.seed(123)
@@ -25,24 +25,21 @@ names(dataTest) = c("t1", "t2", "t3", "t4" , "eth")
 dataTest = as.data.frame(dataTest)
 head(dataTest)
 
+model <- ' i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4
+           s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4 '
+fit <- growth(model, data=Demo.growthTest, group = "eth", estimator = "MLM")
+summary(fit)
+
+```
+Here is an example using their data
+```{r}
+thTest = c(rep("A", 200),rep("B", 200))
+
+Demo.growthTest = cbind(Demo.growth, ethTest)
 
 model <- ' i =~ 1*t1 + 1*t2 + 1*t3 + 1*t4
            s =~ 0*t1 + 1*t2 + 2*t3 + 3*t4 '
-fit <- growth(model, data=dataTest, group = "eth")
+fit <- growth(model, data=Demo.growthTest, group = "ethTest", estimator = "MLM")
 summary(fit)
-
-
-data("HolzingerSwineford1939")
-HolzingerSwineford1939
-
-HS.model <- '  visual =~ x1 + x2 + x3
-              textual =~ x4 + x5 + x6
-              speed   =~ x7 + x8 + x9 '
-fit <- cfa(HS.model, 
-           data = HolzingerSwineford1939, 
-           group = "school")
-
-summary(fit)
-
-
 ```
+
