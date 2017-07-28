@@ -1,3 +1,11 @@
+---
+title: "STEM SEM Power"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 Multigroup analysis in R with lavaan
 Visual is x1:x3 which are the measures that make up visual.
 
